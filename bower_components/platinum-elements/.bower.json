@@ -12,15 +12,15 @@
   "license": "http://polymer.github.io/LICENSE.txt",
   "private": true,
   "dependencies": {
-    "platinum-sw": "PolymerElements/platinum-sw#~1.2.0",
-    "platinum-push-messaging": "PolymerElements/platinum-push-messaging#~1.0.0"
+    "platinum-sw": "PolymerElements/platinum-sw#^1.2.0",
+    "platinum-push-messaging": "PolymerElements/platinum-push-messaging#^1.0.0"
   },
-  "version": "1.1.0",
-  "_release": "1.1.0",
+  "version": "1.1.1",
+  "_release": "1.1.1",
   "_resolution": {
     "type": "version",
-    "tag": "v1.1.0",
-    "commit": "4673f01eed12b21147a0d3fbcb39f50544e0da3e"
+    "tag": "1.1.1",
+    "commit": "28d3c820cadf59248b30ab359b95666c6ae3ff10"
   },
   "_source": "git://github.com/PolymerElements/platinum-elements.git",
   "_target": "^1.0.0",
