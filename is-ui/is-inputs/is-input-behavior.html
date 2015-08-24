@@ -1,0 +1,190 @@
+<!-- <link rel="import" href="/images/ext-libs/polymer/polymer/polymer.html"> -->
+
+<script>
+
+  CheckInputBehavior = {
+    properties: {
+      name: String,
+      label: String,
+      value: String,
+      type: {
+        type: String,
+        value: "text"
+      },
+      //To make it developer friendly, it's better to have setRequired set by the user instead of required attribute set directly. Because, required is a boolean, so if there is any value (even if it is false) is assigned to the required attribute,it will take it as true. In Polymer, if you don't want a field to be be required then we don't use the required attribute at all.
+      setRequired: {
+        type: String,
+        value: "no",
+        observer: "_setRequiredAttr"
+      },
+      setReadonly: {
+        type: String,
+        value: "no"
+      },
+      minLength: Number,
+      maxLength: Number,
+      pattern: {
+        type: String,
+        value: ""
+      },
+      errorMessage: {
+        type: String,
+        value: "This field is required."
+      },
+      hint: {
+        type: String,
+        value: ""
+      }
+    },
+
+    listeners: {
+       focusout: "_checkField",
+       focusin: "_clearError"
+    },
+
+    
+    _checkField: function(param) {
+      //gold inputs (mainly creditcard) don't use this function, so I using querySelector(paperinput)
+      //if param is not an event , it must be inputObj.
+      var inputObj = ( param.initEvent && param.srcElement ) ? this.querySelector("paper-input") : param ;
+      if (!inputObj) return true;
+
+      var hintObj = this.querySelector("#hint");
+      if (hintObj){
+        hintObj.style.display = "none";
+      }
+
+      if( !this.checkEmpty(inputObj) ) return false;
+      // if input is not required, the checkEmpty returns true. So, the input might be empty.
+      // I want to check the following only if the input has a value.
+      if (!inputObj.value) return true;
+
+      // check for minimal length
+      if ( this.minLength && (inputObj.value.length < this.minLength)){
+        inputObj.invalid = true;
+        this.errorMessage = "Needs at least " + this.minLength + " characters";
+        return false;
+      }
+      
+      if (this.maxLength) {
+        var lengthConflict = this.minLength && (this.maxLength < this.minLength);
+        if ( !lengthConflict && (inputObj.value.length > this.maxLength) ){
+          inputObj.invalid = true;
+          this.errorMessage = this.label + " cannot exceed " + this.maxLength + " characters";
+          return false;
+        }
+      }
+  
+      if(this.pattern != "") {
+        return this.checkPattern();
+      }
+
+      return true;
+    },
+
+    checkEmpty: function( inputObj ) {
+      // THIS CHECKS ONLY IF THE INPUT IS REQUIRED.
+      //var inputObj = this.querySelector("paper-input");
+      if ( inputObj.value == "" && this.required && !this.readonly) {
+        inputObj.invalid = true;
+        inputObj.errorMessage = "Please enter the "+ this.label.toLowerCase();
+        return false;
+      }
+      return true;
+    },
+
+    _clearError: function(e) {
+      if(this.tagName  == "IS-PASSWORD" ) return;
+      // I can't use inputObj =this.querySelector("paper-input") || this.querySelector("input"), because I can't find out which element is triggering the event in a multi input component.
+      Polymer.dom(e).rootTarget.invalid = false; // This might cause issue with is-dropdown.
+      this._showHint("block");
+      //hide the hint for the password when we focus out of password and focus in on another input.
+      // if ( this.parentNode.querySelector("div.IS_ErrorMsg")){ 
+      //   this.parentNode.querySelector("div.IS_ErrorMsg").style.display = "none";
+      // }
+      var formObj = this;
+      while ( formObj.tagName != "FORM" ){
+        formObj = formObj.parentNode;
+      }
+      if ( formObj.querySelector("div.IS_ErrorMsg")){ 
+        formObj.querySelector("div.IS_ErrorMsg").style.display = "none";
+      }
+    },
+
+    checkPattern: function(){
+      var inputObj = this.querySelector("paper-input");
+      var regX = new RegExp( this.pattern, "g" ); 
+      // we show invalid when we find some character which is not allowed
+      if ( !regX.test(inputObj.value) ) {
+        inputObj.invalid = true;
+        inputObj.errorMessage = "Please enter a valid "+ this.label.toLowerCase();
+        //Added the follwoing  4 lines, esp. for the keypress events fired by is-input-numeric and other similar components with pattern.
+        this._showHint("none");
+        return false;
+      }else{
+        inputObj.invalid = false;
+        return true;
+      }
+    },
+
+     _showHint: function( display ){
+      //We add the 'or' part in the condition because, hint'can be passed as attribute to is-input component when needed, but for special cases like is-input-alpha, is-input-alphanumeric is defined inside the component, there won't be any 'hint attribute passed. 
+      if ( this.hasAttribute("hint") || this.hint ) {
+        // var hintObj = Polymer.dom(e).localTarget.querySelector("#hint");
+        var hintObj = this.querySelector("#hint");
+        hintObj.style.display = display;
+      }
+    },
+
+    _setRequiredAttr: function(){
+      // Eventhough we have a custom method to check empty fields and show error message,
+      // We need to set the "required" attribute to avoid form submission when a required input is empty.
+
+      if (this.setRequired == "yes"){
+        // setting required to the wrapping element shows our message.
+        // If we don't set required to true for the wrapping element, the form is submitted. Because, the el.required in iron-form.html is false.
+        this.setAttribute("required", "true"); 
+
+        var labelNode = this.querySelector("label");
+        if ( !labelNode.querySelector("span.RequiredSymbol") ){
+          polymerLib.addRequiredSymbol(labelNode);  
+        }
+      
+        // The following setting shows the paperinput error message in a popup.In addition, form is submitted even if the <paper-input> is required and empty.
+        // form is submitted even if the <paper-input> is required and empty. So, we don't need to set it.
+        //this.$$("paper-input").setAttribute("required", "true");
+
+      } else {
+        this.toggleAttribute("required", false);
+        var aster = this.querySelector("span.RequiredSymbol");
+        if (aster) {
+          aster.parentNode.removeChild(aster);
+        }
+      }
+    },
+
+    ready: function (){
+      //we don"t need to set false when setReadOnly/setRequired is "no".
+      // If the readonly/required is not given a value, by default it is false
+      if (this.setReadonly == "yes"){
+        this.$$("paper-input").setAttribute("readonly", "true");
+        this.querySelector("paper-input div.unfocused-line").style.background = "#FFF";
+        this.querySelector("paper-input div.focused-line").style.background = "#FFF";
+      }
+
+    },
+
+    validate: function () {
+      var inputObj;
+      var elementList = this.querySelectorAll("input"); 
+      for( var i=0; i < elementList.length; i++){
+        inputObj = elementList[i];
+        if( !this._checkField(inputObj) ) return false;
+      }
+      //If we don't find the use for the loop above , we can remove  it.
+      // return this._checkField( inputObj ); 
+      return true;
+    }
+  }
+
+</script>

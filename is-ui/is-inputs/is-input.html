@@ -1,0 +1,43 @@
+<link rel="import" href="/images/ext-libs/polymer/paper-input/paper-input.html">
+<dom-module id="is-input">
+
+ <style>
+
+   :host {
+     position: relative;
+   }
+
+   :host #hint{
+     @apply(--is-hint-text);
+     display:none;
+     margin-top:-5px;
+     float: left;
+   }
+
+ </style>
+
+  <template>
+    <paper-input 
+      name="{{name}}" 
+      label="{{label}}" 
+      value="{{value}}" 
+      type="{{type}}" 
+      error-message="{{errorMessage}}">
+    </paper-input>
+
+    <template is="dom-if" if="{{hint}}">
+      <div id="hint">{{hint}}</div>
+    </template>
+
+  </template>
+</dom-module>
+
+<script>
+
+  Polymer({
+    is: "is-input",
+
+    behaviors: [Polymer.IronFormElementBehavior, Polymer.PaperInputBehavior, CheckInputBehavior]
+  });
+
+</script>
