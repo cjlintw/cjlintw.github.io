@@ -1,128 +1,59 @@
 <html>
-<head>
-	<title>Poly</title>
-	<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-	<script src="bower_components/paper-dropdown-menu/paper-dropdown-menu.html"></script>
-	<script src="is-ui/is-inputs/is-dropdown.html"></script>
-	<script src="is-ui/is-inputs/is-input-behavior.html"></script>
-	<script src="is-ui/is-inputs/is-input.html"></script>
-</head>
-<body>	
-	<span>Poly Test</span>
+  <head>
+    <base href="/">
+    <title>Angular 2 Playground</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="forms.css">
 
-  <template id="Demo" is="dom-bind">
-		<div class="horizontal-section-container">
-	    <div>
-	      <h4>Basic Menu</h4>
-	      <div class="horizontal-section">
-	        <paper-dropdown-menu label="Dinosaurs">
-	          <paper-menu class="dropdown-content">
-	            <template is="dom-repeat" items="[[dinosaurs]]" as="dinosaur">
-	              <paper-item>[[dinosaur]]</paper-item>
-	            </template>
-	          </paper-menu>
-	        </paper-dropdown-menu>
-	      </div>
-	    </div>
-	  </div>
-	</template>
+    
+    <!-- 1. Load libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.27/system-polyfills.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/angular2-polyfills.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.27/system.src.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/Rx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/angular2.dev.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/router.min.js"></script>
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" type="text/css" href="vendors/font-awesome-4.6.1/css/font-awesome.min.css" />
 
+    <!-- 2. Configure SystemJS -->
+    <script>
+      System.config({
+        defaultJSExtensions: true,
+        packages: {        
+          app: {
+            format: 'register',
+            defaultExtension: 'js'
+          },
+          "rxjs": {"defaultExtension": "js"},
+          "/angular2": {"defaultExtension": false}
+        },
+        map: {
+          "rxjs": "node_modules/rxjs"
+        }
+      });
+      System.import('app/main')
+            .then(null, console.error.bind(console));
+    </script>
+  </head>
 
-	<template id="Demo" is="dom-bind">
+  <!-- 3. Display the application -->
+  <body>
+    <my-app>
+      <div class="container">
+        <div class="jumbotron loading">
+          <h1>Loading...</h1>
+          <h1 class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></h1>
+        </div>
 
-		<is-dropdown
-	    name="country"
-	    label="Country"
-	    value="{{countryValue}}"
-	    options="{{countries}}"
-	    set-required="{{setRequired}}">
-	  </is-dropdown>
-	</template>
-
-
-  <script>
-    Demo.letters = [
-      'alpha',
-      'beta',
-      'gamma',
-      'delta',
-      'epsilon'
-    ];
-    Demo.dinosaurs = [
-      'allosaurus',
-      'brontosaurus',
-      'carcharodontosaurus',
-      'diplodocus',
-      'ekrixinatosaurus',
-      'fukuiraptor',
-      'gallimimus',
-      'hadrosaurus',
-      'iguanodon',
-      'jainosaurus',
-      'kritosaurus',
-      'liaoceratops',
-      'megalosaurus',
-      'nemegtosaurus',
-      'ornithomimus',
-      'protoceratops',
-      'quetecsaurus',
-      'rajasaurus',
-      'stegosaurus',
-      'triceratops',
-      'utahraptor',
-      'vulcanodon',
-      'wannanosaurus',
-      'xenoceratops',
-      'yandusaurus',
-      'zephyrosaurus'
-    ];
-
-    Demo.countries = [ { "name": "Albania",                 "value": "Albania" },
-		                   { "name": "Andorra",                 "value": "Andorra" },
-		                   { "name": "Australia",               "value": "Australia" },
-		                   { "name": "Austria",                 "value": "Austria" },
-		                   { "name": "Belarus",                 "value": "Belarus" },
-		                   { "name": "Belgium",                 "value": "Belgium" },
-		                   { "name": "Bermuda",                 "value": "Bermuda" },
-		                   { "name": "Bosnia and Herzegovina",  "value": "Bosnia and Herzegovina" },
-		                   { "name": "Bulgaria",                "value": "Bulgaria" },
-		                   { "name": "Canada",                  "value": "Canada" },
-		                   { "name": "Croatia (Hrvatska)",      "value": "Croatia" },
-		                   { "name": "Cyprus",                  "value": "Cyprus" },
-		                   { "name": "Czech Republic",          "value": "Czech Republic" },
-		                   { "name": "Denmark",                 "value": "Denmark" },
-		                   { "name": "Estonia",                 "value": "Estonia" },
-		                   { "name": "Finland",                 "value": "Finland" },
-		                   { "name": "France",                  "value": "France" },
-		                   { "name": "Germany",                 "value": "Germany" },
-		                   { "name": "Great Britain (UK)",      "value": "United Kingdom" },
-		                   { "name": "Greece",                  "value": "Greece" },
-		                   { "name": "Hungary",                 "value": "Hungary" },
-		                   { "name": "Ireland",                 "value": "Ireland" },
-		                   { "name": "Italy",                   "value": "Italy" },
-		                   { "name": "Japan",                   "value": "Japan" },
-		                   { "name": "Latvia",                  "value": "Latvia" },
-		                   { "name": "Liechtenstein",           "value": "Liechtenstein" },
-		                   { "name": "Lithuania",               "value": "Lithuania" },
-		                   { "name": "Luxembourg",              "value": "Luxembourg" },
-		                   { "name": "Macedonia",               "value": "Macedonia" },
-		                   { "name": "Malta",                   "value": "Malta" },
-		                   { "name": "Mexico",                  "value": "Mexico" },
-		                   { "name": "Moldova",                 "value": "Moldova" },
-		                   { "name": "Netherlands",             "value": "Netherlands" },
-		                   { "name": "New Zealand (Aotearoa)",  "value": "New Zealand" },
-		                   { "name": "Norway",                  "value": "Norway" },
-		                   { "name": "Poland",                  "value": "Poland" },
-		                   { "name": "Portugal",                "value": "Portugal" },
-		                   { "name": "Puerto Rico",             "value": "Puerto Rico" },
-		                   { "name": "Romania",                 "value": "Romania" },
-		                   { "name": "San Marino",              "value": "San Marino" },
-		                   { "name": "Singapore",               "value": "Singapore" },
-		                   { "name": "Slovenia",                "value": "Slovenia" },
-		                   { "name": "South Africa",            "value": "South Africa" },
-		                   { "name": "South Korea",             "value": "South Korea" },
-		                   { "name": "Spain",                   "value": "Spain" } ];
-  </script>
-
-</body>
+      </div>
+    </my-app>
+  </body>
 </html>

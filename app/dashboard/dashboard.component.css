@@ -1,0 +1,67 @@
+.tile {
+  box-sizing: border-box;
+  background: #1976D2;    
+  color: #fff;
+  padding: 20px 0px;
+  margin-bottom: 30px;
+  text-align: center;      
+  width: 100%;
+}
+.tile:hover {
+  background-color: #E0E0E0;
+  cursor: pointer;
+  color: #607d8b;
+}
+
+.tile {
+  -webkit-perspective: 800;
+  perspective: 800;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transition: 0.5s;
+  transform-style: preserve-3d;
+  transition: 0.5s;
+}
+
+.tile:hover {
+  -webkit-transform: rotatex(-180deg);
+  transform: rotatex(-180deg);
+}
+
+.tile .face {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.tile .front {
+  position: absolute;
+  width: 100%;
+}
+
+.tile .back {
+  -webkit-transform: rotatex(-180deg);
+  transform: rotatex(-180deg);
+}
+
+.tile1 {
+  position: relative;
+  top: 300px;
+  -webkit-animation: flyin 2s forwards; /* Chrome, Safari, Opera */
+  animation: flyin 2s forwards;
+}
+
+.tile2 {
+  position: relative;
+  top: 300px;
+  -webkit-animation: flyin 1.8s forwards; /* Chrome, Safari, Opera */
+  animation: flyin 1.8s forwards;
+}
+
+@keyframes flyin {
+  from {top: 300px;}
+  to {top: 0px;}
+}
+
+@-webkit-keyframes flyin {
+  from {top: 300px;}
+  to {top: 0px;}
+}

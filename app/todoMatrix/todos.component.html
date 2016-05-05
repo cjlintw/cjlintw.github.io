@@ -1,0 +1,97 @@
+<div class="container">
+  
+  <div class="row">
+    <div class="col-sm-4">
+      <h3 class="text-capitalize"> Better Time Mangement - <strong class="text-primary">Eisenhower Matrix</strong></h3>
+      <todo-form [todo]="selectedTodo"></todo-form>
+    </div>
+
+    <div class="col-sm-8">
+      <div class="row">
+        <div class="col-sm-6 quad bg-quad1 table-responsive" id="quad1">
+          <div class="textbg textbg-color-quad1 font-xl hidden-sm"><span>Do Now!</span></div>
+          <div class="quad-card">
+            <table class="table table-hover table-condensed">
+              <tbody>
+                <tr *ngFor="let todo of (todos | todoMatrix:true:true);">
+                  <td>
+                    <input type="checkbox" title="done?" [checked]="todo.completed" (change)="onChange(todo)">
+                  </td>
+                  <td [class.strikeout]="todo.completed" (click)="onSelect(todo)">{{todo.date}}</td>           
+                  <td class="hidden-sm" [class.strikeout]="todo.completed" (click)="onSelect(todo)">{{todo.time}}</td>           
+                  <td [class.strikeout]="todo.completed" (click)="onSelect(todo)">{{todo.task}}</td>
+                  <td>
+                    <button type="button" class="close" aria-label="Close" title="close?" (click)="delTodo(todo)"><span aria-hidden="true">&times;</span></button>            
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>            
+        </div>
+        <div class="col-sm-6 quad bg-quad2 table-responsive" id="quad2">
+          <div class="textbg textbg-color-quad2 font-xl hidden-sm"><span>Plan</span></div>
+          <div class="quad-card">
+            <table class="table table-hover table-condensed">
+              <tbody>
+                <tr *ngFor="let todo of (todos | todoMatrix:true:false);">
+                  <td>
+                    <input type="checkbox" title="done?" [checked]="todo.completed" (change)="onChange(todo)">
+                  </td>
+                  <td [class.strikeout]="todo.completed" (click)="onSelect(todo)">{{todo.date}}</td>           
+                  <td [class.strikeout]="todo.completed" (click)="onSelect(todo)">{{todo.time}}</td>           
+                  <td [class.strikeout]="todo.completed" (click)="onSelect(todo)">{{todo.task}}</td>
+                  <td>
+                    <button type="button" class="close" aria-label="Close" title="close?" (click)="delTodo(todo)"><span aria-hidden="true">&times;</span></button>            
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 quad bg-quad3 table-responsive" id="quad3">
+          <div class="textbg textbg-color-quad3 font-xl hidden-sm"><span>Delegate</span></div>
+          <div class="quad-card">
+            <table class="table table-hover table-condensed">
+              <tbody>
+                <tr *ngFor="let todo of (todos | todoMatrix:false:true);">
+                  <td>
+                    <input type="checkbox" title="done?" [checked]="todo.completed" (change)="onChange(todo)">
+                  </td>
+                  <td [class.strikeout]="todo.completed" (click)="onSelect(todo)">{{todo.date}}</td>           
+                  <td [class.strikeout]="todo.completed" (click)="onSelect(todo)">{{todo.time}}</td>           
+                  <td [class.strikeout]="todo.completed" (click)="onSelect(todo)">{{todo.task}}</td>
+                  <td>
+                    <button type="button" class="close" aria-label="Close" title="close?" (click)="delTodo(todo)"><span aria-hidden="true">&times;</span></button>            
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-sm-6 quad bg-quad4 table-responsive" id="quad4">
+          <div class="textbg textbg-color-quad4 font-xl hidden-sm"><span>Can Wait</span></div>
+          <div class="quad-card">
+            <table class="table table-hover table-condensed">
+              <tbody>
+                <tr *ngFor="let todo of (todos | todoMatrix:false:false);">
+                  <td>
+                    <input type="checkbox" title="done?" [checked]="todo.completed" (change)="onChange(todo)">
+                  </td>
+                  <td [class.strikeout]="todo.completed" (click)="onSelect(todo)">{{todo.date}}</td>           
+                  <td [class.strikeout]="todo.completed" (click)="onSelect(todo)">{{todo.time}}</td>           
+                  <td [class.strikeout]="todo.completed" (click)="onSelect(todo)">{{todo.task}}</td>
+                  <td>
+                    <button type="button" class="close" aria-label="Close" title="close?" (click)="delTodo(todo)"><span aria-hidden="true">&times;</span></button>            
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

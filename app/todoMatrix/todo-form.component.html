@@ -1,0 +1,96 @@
+<!-- type class id 
+      attr, prop in alpha order
+      #ref [(ngModel)]
+      [prop] (click) -->
+<div *ngIf="todo">
+  <form class="form-horizontal" *ngIf="active" (ngSubmit)="onSubmit()" #todoForm="ngForm">
+    <div class="form-group">
+      <label class="col-sm-3 control-label" for="task">Task: </label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="formTask" 
+          placeholder="things to do..." required          
+          #task="ngForm" ngControl="task" [(ngModel)]="todo.task">
+        <div class="alert alert-danger form-alert"
+          [hidden]="task.valid || task.pristine">
+          Task is required
+        </div>  
+      </div> 
+      
+    </div>
+    
+    <div class="form-group">
+      <label for="date" class="col-sm-3 control-label">Date: </label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" required
+          #date="ngForm" ngControl="date" [(ngModel)]="todo.date">
+        <div class="alert alert-danger form-alert"
+          [hidden]="date.valid || date.pristine">
+          Date is required
+        </div>  
+      </div>
+      
+    </div>
+
+    <div class="form-group">
+      <label for="time" class="col-sm-3 control-label">Time: </label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" required
+          #time="ngForm" ngControl="time" [(ngModel)]="todo.time">
+        <div class="alert alert-danger form-alert"
+          [hidden]="time.valid || time.pristine">
+          Time is required
+        </div>  
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-8">
+        <label class="checkbox-inline">
+          <input type="checkbox" id="ckboxImportant" value="1"
+            #important="ngForm" ngControl="important" [(ngModel)]="todo.important"
+            (ngModelChange)="quadChange()">
+          Important? 
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" id="ckboxUrgent" value="2"
+            #urgent="ngForm" ngControl="urgent" [(ngModel)]="todo.urgent"
+            (ngModelChange)="quadChange()">
+          Urgent?
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label" for="category">Category: </label>
+      <div class="col-sm-8">
+        <select class="form-control" required
+          #category="ngForm" ngControl="category" [(ngModel)]="todo.category">
+          <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label" for="detail">Detail: </label>
+      <div class="col-sm-8">
+        <textarea class="form-control" placeholder="details..." rows="3"
+          #detail="ngForm" ngControl="detail" [(ngModel)]="todo.detail"></textarea>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-8">
+        <button *ngIf="todo.id!=0" type="submit" class="btn btn-default" 
+          [disabled]="!todoForm.form.valid||todoForm.form.pristine">Save Todo
+        </button>
+        <button *ngIf="todo.id==0" type="submit" class="btn btn-default" 
+          [disabled]="!todoForm.form.valid">Add Todo
+        </button>
+        <button type="button" class="btn btn-default" 
+          (click)="newTodo()">New Todo
+        </button> 
+      </div>
+    </div>
+  </form>
+</div>

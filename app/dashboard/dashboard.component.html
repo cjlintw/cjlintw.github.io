@@ -1,0 +1,8 @@
+<div class="row">
+  <div *ngFor="let tool of tools; let i=index" (click)="gotoTool(tool)" class="col-sm-3">
+    <div class="tile tile{{i+1}}">
+      <h4 class="front face">{{tool.title}}<span *ngIf="tool.value"> ({{tool.value}})</span></h4>
+      <h4 class="back face">{{tool.title}}<span *ngIf="tool.value"> ({{tool.value}})</span></h4>
+    </div>
+  </div>
+</div>

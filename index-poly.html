@@ -1,0 +1,128 @@
+<html>
+<head>
+	<title>Poly</title>
+	<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+	<script src="bower_components/paper-dropdown-menu/paper-dropdown-menu.html"></script>
+	<script src="is-ui/is-inputs/is-dropdown.html"></script>
+	<script src="is-ui/is-inputs/is-input-behavior.html"></script>
+	<script src="is-ui/is-inputs/is-input.html"></script>
+</head>
+<body>	
+	<span>Poly Test</span>
+
+  <template id="Demo" is="dom-bind">
+		<div class="horizontal-section-container">
+	    <div>
+	      <h4>Basic Menu</h4>
+	      <div class="horizontal-section">
+	        <paper-dropdown-menu label="Dinosaurs">
+	          <paper-menu class="dropdown-content">
+	            <template is="dom-repeat" items="[[dinosaurs]]" as="dinosaur">
+	              <paper-item>[[dinosaur]]</paper-item>
+	            </template>
+	          </paper-menu>
+	        </paper-dropdown-menu>
+	      </div>
+	    </div>
+	  </div>
+	</template>
+
+
+	<template id="Demo" is="dom-bind">
+
+		<is-dropdown
+	    name="country"
+	    label="Country"
+	    value="{{countryValue}}"
+	    options="{{countries}}"
+	    set-required="{{setRequired}}">
+	  </is-dropdown>
+	</template>
+
+
+  <script>
+    Demo.letters = [
+      'alpha',
+      'beta',
+      'gamma',
+      'delta',
+      'epsilon'
+    ];
+    Demo.dinosaurs = [
+      'allosaurus',
+      'brontosaurus',
+      'carcharodontosaurus',
+      'diplodocus',
+      'ekrixinatosaurus',
+      'fukuiraptor',
+      'gallimimus',
+      'hadrosaurus',
+      'iguanodon',
+      'jainosaurus',
+      'kritosaurus',
+      'liaoceratops',
+      'megalosaurus',
+      'nemegtosaurus',
+      'ornithomimus',
+      'protoceratops',
+      'quetecsaurus',
+      'rajasaurus',
+      'stegosaurus',
+      'triceratops',
+      'utahraptor',
+      'vulcanodon',
+      'wannanosaurus',
+      'xenoceratops',
+      'yandusaurus',
+      'zephyrosaurus'
+    ];
+
+    Demo.countries = [ { "name": "Albania",                 "value": "Albania" },
+		                   { "name": "Andorra",                 "value": "Andorra" },
+		                   { "name": "Australia",               "value": "Australia" },
+		                   { "name": "Austria",                 "value": "Austria" },
+		                   { "name": "Belarus",                 "value": "Belarus" },
+		                   { "name": "Belgium",                 "value": "Belgium" },
+		                   { "name": "Bermuda",                 "value": "Bermuda" },
+		                   { "name": "Bosnia and Herzegovina",  "value": "Bosnia and Herzegovina" },
+		                   { "name": "Bulgaria",                "value": "Bulgaria" },
+		                   { "name": "Canada",                  "value": "Canada" },
+		                   { "name": "Croatia (Hrvatska)",      "value": "Croatia" },
+		                   { "name": "Cyprus",                  "value": "Cyprus" },
+		                   { "name": "Czech Republic",          "value": "Czech Republic" },
+		                   { "name": "Denmark",                 "value": "Denmark" },
+		                   { "name": "Estonia",                 "value": "Estonia" },
+		                   { "name": "Finland",                 "value": "Finland" },
+		                   { "name": "France",                  "value": "France" },
+		                   { "name": "Germany",                 "value": "Germany" },
+		                   { "name": "Great Britain (UK)",      "value": "United Kingdom" },
+		                   { "name": "Greece",                  "value": "Greece" },
+		                   { "name": "Hungary",                 "value": "Hungary" },
+		                   { "name": "Ireland",                 "value": "Ireland" },
+		                   { "name": "Italy",                   "value": "Italy" },
+		                   { "name": "Japan",                   "value": "Japan" },
+		                   { "name": "Latvia",                  "value": "Latvia" },
+		                   { "name": "Liechtenstein",           "value": "Liechtenstein" },
+		                   { "name": "Lithuania",               "value": "Lithuania" },
+		                   { "name": "Luxembourg",              "value": "Luxembourg" },
+		                   { "name": "Macedonia",               "value": "Macedonia" },
+		                   { "name": "Malta",                   "value": "Malta" },
+		                   { "name": "Mexico",                  "value": "Mexico" },
+		                   { "name": "Moldova",                 "value": "Moldova" },
+		                   { "name": "Netherlands",             "value": "Netherlands" },
+		                   { "name": "New Zealand (Aotearoa)",  "value": "New Zealand" },
+		                   { "name": "Norway",                  "value": "Norway" },
+		                   { "name": "Poland",                  "value": "Poland" },
+		                   { "name": "Portugal",                "value": "Portugal" },
+		                   { "name": "Puerto Rico",             "value": "Puerto Rico" },
+		                   { "name": "Romania",                 "value": "Romania" },
+		                   { "name": "San Marino",              "value": "San Marino" },
+		                   { "name": "Singapore",               "value": "Singapore" },
+		                   { "name": "Slovenia",                "value": "Slovenia" },
+		                   { "name": "South Africa",            "value": "South Africa" },
+		                   { "name": "South Korea",             "value": "South Korea" },
+		                   { "name": "Spain",                   "value": "Spain" } ];
+  </script>
+
+</body>
+</html>

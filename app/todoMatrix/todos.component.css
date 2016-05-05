@@ -1,0 +1,47 @@
+.textbg {
+  display: table;
+  height: 100%;
+  padding: 0px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  z-index: 0;
+}
+
+.textbg span {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.textbg-color-quad1 { color: #ffebee; }
+.textbg-color-quad2 { color: #FFF8E1; }
+.textbg-color-quad3 { color: #E8F5E9; }
+.textbg-color-quad4 { color: #ECEFF1; }
+
+.quad-card {
+  padding: 10px 20px;
+  opacity: 0.99;
+}
+.quad-card table {
+  padding: 10px 20px;
+  opacity: 0.99;
+}
+
+.bg-quad1 { background-color: #ffcdd2; }
+.bg-quad2 { background-color: #FFECB3; }
+.bg-quad3 { background-color: #C8E6C9; }
+.bg-quad4 { background-color: #CFD8DC; }
+
+.quad {
+  border: 2px solid #fff;
+  border-radius: 10px;
+  height: 35%;
+  padding: 0px;
+}
+
+@media (max-width: 768px) { 
+  .quad {
+    height: auto;
+  }
+}
+
